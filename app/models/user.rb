@@ -9,6 +9,7 @@ class User < ApplicationRecord
   # "profile_image"という名前でActiveStorageに保存
   has_one_attached :profile_image
 
+  # viewで画像サイズの指定する
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
