@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # 1:Nの関係の「1」のデータが削除されたとき、関連する「N」のデータも削除する
   has_many :post_images, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
 
   # "profile_image"という名前でActiveStorageに保存
   has_one_attached :profile_image

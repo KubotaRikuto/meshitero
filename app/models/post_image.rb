@@ -3,6 +3,7 @@ class PostImage < ApplicationRecord
   has_one_attached :image
   # userモデルを参照(1:NのN側)
   belongs_to :user
+  has_many :post_comments, dependent: :destroy
 
   def get_image
     # unless文はif文の反対で結果がfalseの場合処理される
