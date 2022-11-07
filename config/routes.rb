@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :post_images, only: [:new, :create, :index, :show, :destroy] do
+    # resource　単数形にするとURLに/:idが含まれなくなる
+    resource :favorites, only: [:create, :destroy]
     # post_commentsはpost_imagesに1:Nで紐づくデータなので親子関係になる。
     resources :post_comments, only: [:create, :destroy]
   end
