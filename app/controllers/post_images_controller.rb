@@ -9,8 +9,11 @@ class PostImagesController < ApplicationController
     # user_id => 投稿したユーザを識別するID
     # current_user.id => ユーザIDの取得
     @post_image.user_id = current_user.id
-    @post_image.save
-    redirect_to post_images_path
+    if @post_image.save
+      redirect_to post_images_path
+    else
+      render :new
+    end
   end
 
   def index

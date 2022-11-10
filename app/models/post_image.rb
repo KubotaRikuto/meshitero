@@ -6,6 +6,10 @@ class PostImage < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  # バリデーション設定 shop_nameとimageの確認
+  validates :shop_name, presence: true
+  validates :image, presence: true
+
   def get_image
     # unless文はif文の反対で結果がfalseの場合処理される
     unless image.attached?

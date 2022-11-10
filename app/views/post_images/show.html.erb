@@ -8,12 +8,14 @@
     <% if @post_image.user == current_user %>
       <%= link_to "削除", post_image_path(@post_image), method: :delete %>
     <% end %>
-    <!-- いいね機能 -->
 
+    <!-- いいね機能 -->
     <% if @post_image.favorited_by?(current_user) %>
       <p>
         <!-- いいねを削除 -->
-        <%= link_to post_image_favorites_path(@post_image), method: :delete do %>  <!-- @post_imageなのはなぜ？-->
+        <!-- 引数が@post_imageなのはなぜ？ => 投稿画像(post_imagesテーブル)のidが分からないとどの投稿のいいねか分からないから-->
+        <%= link_to post_image_favorites_path(@post_image), method: :delete do %>
+          <!-- @post_imageにネストされているfavoritesテーブル内、post_image_idのカウントをしている-->
           ♥<%= @post_image.favorites.count %> いいね
         <% end %>
       </p>
