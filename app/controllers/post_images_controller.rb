@@ -17,7 +17,8 @@ class PostImagesController < ApplicationController
   end
 
   def index
-    @post_images = PostImage.all
+    # 表示するデータの数を決められた分だけ新しい順に取得する。
+    @post_images = PostImage.page(params[:page])
   end
 
   def show
