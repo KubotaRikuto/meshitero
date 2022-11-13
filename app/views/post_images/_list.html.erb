@@ -1,19 +1,32 @@
 <!-- テンプレートファイル -->
-<% post_images.each do |post_image| %>
-<div>
-  <%= link_to post_image_path(post_image.id) do %>
+<div class="card-list-container py-5">
+  <% post_images.each do |post_image| %>
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <%= link_to post_image_path(post_image.id) do %>
     <!-- get_imageはpost_imageモデル内で定義したメソッドを参照 -->
-    <%= image_tag post_image.get_image %>
+      <%= image_tag post_image.get_image, class:"card-img-top"; %>
+    <% end %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <%= image_tag post_image.user.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+        </div>
+        <div class="col-10">
+          <p class="card-title">
+            <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
+              <!-- PostImageモデルから表示 -->
+              <strong><i class="far fa-flag"></i><span> <%= post_image.shop_name %></span></strong>
+            <% end %>
+          </p>
+          <p class="card-text">説明：<%= post_image.caption %></p>
+          <!-- userモデルのnameカラムを表示 -->
+          <span><i class="fas fa-user"></i> By <%= post_image.user.name %> ｜ </span>
+          <span><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id), class:"text-dark" %></span>
+        </div>
+      </div>
+    </div>
+  </div>
   <% end %>
-  <p>投稿ユーザー画像：<%= image_tag post_image.user.get_profile_image(100,100) %></p>
-  <!-- PostImageモデルから表示 -->
-  <p>ショップ名：<%= post_image.shop_name %></p>
-  <p>説明：<%= post_image.caption %></p>
-  <!-- userモデルのnameカラムを表示 -->
-  <p>ユーザーネーム：<%= post_image.user.name %></p>
-  <p><%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %></p>
+  <!-- ページネーション設定 -->
+  <%= paginate post_images %>
 </div>
-<% end %>
-
-<!-- ページネーション設定 -->
-<%= paginate post_images %>
